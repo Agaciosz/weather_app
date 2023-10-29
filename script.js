@@ -133,3 +133,12 @@ buttons.forEach(function (button) {
     navigator.geolocation.getCurrentPosition(showPosition);
   });
 });
+
+function displayDefaultCity() {
+  window.addEventListener("load", function () {
+    const defaultCity = "Wrocław";
+    displayTemperature(defaultCity);
+  });
+}
+
+displayDefaultCity();
