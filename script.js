@@ -44,7 +44,6 @@ function displayTemperature(city) {
     let wind = document.querySelector("#wind");
     let humidity = document.querySelector("#humidity");
     let description = document.querySelector("#description");
-    //let time = document.querySelector("#time");
     temperature.innerHTML = Math.round(response.data.main.temp);
     wind.innerHTML = Math.round(response.data.wind.speed * 3.6);
     humidity.innerHTML = response.data.main.humidity;
@@ -73,9 +72,15 @@ function showTemperatureOfMyCity(latitude, longitude) {
     let myCity = document.querySelector("#city");
     myCity.innerHTML = response.data.name;
     let temperature = document.querySelector("#temperature");
+    let wind = document.querySelector("#wind");
+    let humidity = document.querySelector("#humidity");
+    let description = document.querySelector("#description");
     temperature.innerHTML = Math.round(response.data.main.temp);
-    temperature.innerHTML = Math.round(response.data.main.temp);
+    wind.innerHTML = Math.round(response.data.wind.speed * 3.6);
     humidity.innerHTML = response.data.main.humidity;
+    description.innerHTML =
+      response.data.weather[0].description.charAt(0).toUpperCase() +
+      response.data.weather[0].description.slice(1);
   });
 }
 
