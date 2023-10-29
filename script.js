@@ -116,6 +116,13 @@ function showTemperatureOfMyCity(latitude, longitude) {
     description.innerHTML =
       response.data.weather[0].description.charAt(0).toUpperCase() +
       response.data.weather[0].description.slice(1);
+    icon.setAttribute(
+      "src",
+      `http://openweathermap.org/img/wn/${response.data.weather[0].icon}@2x.png`
+    );
+    iconElement.setAttribute("alt", response.data.weather[0].description);
+
+    getForecast(response.data.coord);
   });
 }
 
