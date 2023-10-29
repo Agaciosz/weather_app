@@ -37,9 +37,35 @@ function displayCity(event) {
 
 let apiKey = "b5c3a410d9e64da83f9eb805ceaac113";
 
+function changeTemperature(event, celsius) {
+  event.preventDefault();
+
+  let temperatureElement = document.querySelector("#temperature");
+
+  if (event.target.id === "celsius") {
+    temperatureElement.innerHTML = celsius;
+  } else if (event.target.id === "fahrenheit") {
+    let fahrenheit = (celsius * 9) / 5 + 32;
+    temperatureElement.innerHTML = `${Math.round(fahrenheit)}`;
+  }
+}
+
+let celsiusLink = document.querySelector("#celsius");
+celsiusLink.addEventListener("click", (event) =>
+  changeTemperature(event, celsius)
+);
+
+let fahrenheitLink = document.querySelector("#fahrenheit");
+fahrenheitLink.addEventListener("click", (event) =>
+  changeTemperature(event, celsius)
+);
+
+let celsius;
+
 function displayTemperature(city) {
   let apiUrl = `https://api.openweathermap.org/data/2.5/weather?q=${city}&appid=${apiKey}&units=metric`;
   axios.get(apiUrl).then(function (response) {
+    celsius = Math.round(response.data.main.temp);
     let temperature = document.querySelector("#temperature");
     let wind = document.querySelector("#wind");
     let humidity = document.querySelector("#humidity");
@@ -71,6 +97,7 @@ function showTemperatureOfMyCity(latitude, longitude) {
   axios.get(apiUrl).then(function (response) {
     let myCity = document.querySelector("#city");
     myCity.innerHTML = response.data.name;
+    celsius = Math.round(response.data.main.temp);
     let temperature = document.querySelector("#temperature");
     let wind = document.querySelector("#wind");
     let humidity = document.querySelector("#humidity");
