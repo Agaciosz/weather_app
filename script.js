@@ -126,6 +126,38 @@ function showTemperatureOfMyCity(latitude, longitude) {
   });
 }
 
+function displayForecast() {
+  let forecastElement = document.querySelector("#forecast");
+
+  let days = ["Tue", "Wed", "Thu", "Fri", "Sat"];
+  let forecastHtml =
+    '<div class="row align-items-center justify-content-around">';
+
+  days.forEach(function (day) {
+    forecastHtml =
+      forecastHtml +
+      `
+    <div class="col-2">
+      <div>
+        <div class="weather-forecast-date">${day}</div>
+        <img
+          src="http://openweathermap.org/img/wn/04d@2x.png"
+          alt=""
+          class="forecast-icon"
+          style="max-height: 64px; max-width: 64px"
+        />
+        <div class="weather-forecast-temperature">
+          <span class="weather-forecast-max-temperature">18</span>
+          <span class="weather-forecast-min-temperature">12</span>
+        </div>
+      </div>
+    </div>
+`;
+  });
+  forecastHtml += "</div>";
+  forecastElement.innerHTML = forecastHtml;
+}
+
 const buttons = document.querySelectorAll(".btn.btn-success");
 
 buttons.forEach(function (button) {
@@ -142,3 +174,4 @@ function displayDefaultCity() {
 }
 
 displayDefaultCity();
+displayForecast();
