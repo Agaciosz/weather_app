@@ -126,7 +126,15 @@ function showTemperatureOfMyCity(latitude, longitude) {
   });
 }
 
-function displayForecast() {
+function getForecast(city) {
+  let apiKey = "b5c3a410d9e64da83f9eb805ceaac113";
+  let apiUrl = `https://api.openweathermap.org/data/2.5/weather?q=${city}&appid=${apiKey}&units=metric`;
+  axios(apiUrl).then(displayForecast);
+}
+
+function displayForecast(response) {
+  console.log(response.data);
+
   let forecastElement = document.querySelector("#forecast");
 
   let days = ["Tue", "Wed", "Thu", "Fri", "Sat"];
@@ -174,4 +182,4 @@ function displayDefaultCity() {
 }
 
 displayDefaultCity();
-displayForecast();
+getForecast("Dwikozy");
