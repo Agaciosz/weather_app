@@ -30,6 +30,7 @@ function displayCity(event) {
   event.preventDefault();
   let input = document.querySelector("#cityName");
   let city = input.value;
+  console.log(city);
   document.querySelector("#city").innerHTML = city;
 
   displayTemperature(city);
@@ -62,6 +63,11 @@ fahrenheitLink.addEventListener("click", (event) =>
 
 let celsius;
 
+function getForecast(coord, city) {
+  let apiUrl = `https://api.openweathermap.org/data/2.5/weather?q=${city}&appid=${apiKey}&units=metric`;
+  axios.get(apiUrl).then(displayForecast);
+}
+
 function displayTemperature(city) {
   let apiUrl = `https://api.openweathermap.org/data/2.5/weather?q=${city}&appid=${apiKey}&units=metric`;
   axios.get(apiUrl).then(function (response) {
@@ -81,17 +87,17 @@ function displayTemperature(city) {
       "src",
       `http://openweathermap.org/img/wn/${response.data.weather[0].icon}@2x.png`
     );
-    iconElement.setAttribute("alt", response.data.weather[0].description);
+    icon.setAttribute("alt", response.data.weather[0].description);
 
-    getForecast(response.data.coord);
+    getForecast(response.data.coord, city);
   });
 }
 
 let form = document.querySelector("form");
 form.addEventListener("submit", displayCity);
-form.addEventListener("click", displayCity);
 
-// Show current temperature
+let searchButton = document.getElementById("searchButton");
+searchButton.addEventListener("click", displayCity);
 
 function showPosition(position) {
   let latitude = position.coords.latitude;
@@ -120,21 +126,13 @@ function showTemperatureOfMyCity(latitude, longitude) {
       "src",
       `http://openweathermap.org/img/wn/${response.data.weather[0].icon}@2x.png`
     );
-    iconElement.setAttribute("alt", response.data.weather[0].description);
+    icon.setAttribute("alt", response.data.weather[0].description);
 
-    getForecast(response.data.coord);
+    getForecast(response.data.coord, response.data.name);
   });
 }
 
-function getForecast(city) {
-  let apiKey = "b5c3a410d9e64da83f9eb805ceaac113";
-  let apiUrl = `https://api.openweathermap.org/data/2.5/weather?q=${city}&appid=${apiKey}&units=metric`;
-  axios(apiUrl).then(displayForecast);
-}
-
-function displayForecast(response) {
-  console.log(response.data);
-
+function displayForecast() {
   let forecastElement = document.querySelector("#forecast");
 
   let days = ["Tue", "Wed", "Thu", "Fri", "Sat"];
@@ -182,4 +180,4 @@ function displayDefaultCity() {
 }
 
 displayDefaultCity();
-getForecast("Dwikozy");
+displayForecast();
