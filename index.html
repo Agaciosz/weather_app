@@ -22,7 +22,7 @@
   <body>
     <div class="container">
       <div class="d-flex justify-content-center">
-        <div class="card border-secondary mb-3" style="width: 34rem">
+        <div class="card border-light mb-3" style="width: 34rem">
           <div class="card-body">
             <form class="d-flex">
               <input
@@ -43,15 +43,15 @@
               <input
                 type="checkbox"
                 class="btn-check"
-                id="btn-check"
+                id="currentButton"
                 autocomplete="off"
               />
-              <label class="btn btn-success" for="btn-check">Current</label>
+              <label class="btn btn-current" for="currentButton">Current</label>
             </form>
             <div class="page-text">
               <div>
                 <h1>
-                  <span id="temperature">20</span
+                  <span id="temperature"></span
                   ><span class="degrees">
                     <a href=""> <span id="celsius">°C</span></a> |
                     <a href=""> <span id="fahrenheit">°F</span></a></span
@@ -72,8 +72,11 @@
                   <div class="d-flex justify-content-start align-items-center">
                     <h2>
                       <ul>
-                        <li><span id="day"></span> <span id="time"></span></li>
-                        <li id="description">Partly cloudy</li>
+                        <li>
+                          <span id="day"></span>
+                          <strong><span id="time"></span></strong>
+                        </li>
+                        <li id="description"></li>
                       </ul>
                     </h2>
                   </div>
@@ -82,8 +85,13 @@
                   <div class="d-flex justify-content-end align-items-center">
                     <h2 class="date">
                       <ul>
-                        <li>Humidity: <span id="humidity"></span>%</li>
-                        <li>Wind: <span id="wind"></span> km/h</li>
+                        <li>
+                          Humidity:
+                          <strong><span id="humidity"></span>%</strong>
+                        </li>
+                        <li>
+                          Wind: <strong><span id="wind"></span> km/h</strong>
+                        </li>
                       </ul>
                     </h2>
                   </div>
@@ -95,10 +103,14 @@
         </div>
       </div>
       <footer>
+        This project was coded by Agata Głąb, is
         <a href="https://github.com/Agaciosz/weather_app" target="_blank"
-          >Open source-code</a
+          >open sourced on GitHub</a
         >
-        by Agata Głąb
+        and
+        <a href="https://moonlit-daifuku-e03f84.netlify.app/"
+          >hosted on Netlify</a
+        >
       </footer>
     </div>
     <script src="script.js"></script>

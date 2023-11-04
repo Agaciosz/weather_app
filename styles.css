@@ -1,4 +1,5 @@
 body {
+  background-color: #f9f7fe;
   font-family: "Open Sans", sans-serif;
 }
 h1 {
@@ -27,6 +28,8 @@ ul {
 }
 
 .page-text {
+  margin-bottom: 10px;
+  margin-top: 10px;
   padding: 3px 10px;
 }
 
@@ -35,25 +38,49 @@ ul {
   color: #6643b5;
   margin-bottom: 10px;
   margin-right: 20px;
+  margin-top: 10px;
   text-align: left;
   width: 75%;
 }
 
-.btn-primary {
+label[for="searchButton"] {
   box-shadow: rgba(37, 39, 89, 0.05) 0px 8px 8px 0;
   margin-bottom: 10px;
   margin-right: 10px;
+  margin-top: 10px;
+  transition: all 200ms ease-in-out;
   width: 25%;
 }
 
-.btn-success {
+label[for="currentButton"] {
   box-shadow: rgba(37, 39, 89, 0.05) 0px 8px 8px 0;
+  background-color: #7c58cf;
+  border-color: #7c58cf;
+  color: white;
   margin-bottom: 10px;
+  margin-top: 10px;
+  transition: all 200ms ease-in-out;
   width: 25%;
 }
 
-.btn-check:hover {
+.btn.btn-current.clicked {
+  background-color: #7c58cf;
+  border-color: #7c58cf;
+  color: white;
+}
+
+.btn-primary:hover {
   cursor: pointer;
+  opacity: 0.9;
+}
+
+.btn-current:hover {
+  cursor: pointer;
+  box-shadow: rgba(37, 39, 89, 0.05) 0px 8px 8px 0 !important;
+  background-color: #7c58cf !important;
+  border-color: #7c58cf !important;
+  color: white !important;
+  opacity: 0.9;
 }
 
 #city {
@@ -69,7 +96,7 @@ ul {
 }
 
 .weather-forecast {
-  margin-top: 20px;
+  margin-top: 40px;
   text-align: center;
 }
 

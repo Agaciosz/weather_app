@@ -64,7 +64,7 @@ fahrenheitLink.addEventListener("click", (event) =>
 let celsius;
 
 function getForecast(coord, city) {
-  let apiUrl = `https://api.openweathermap.org/data/2.5/weather?q=${city}&appid=${apiKey}&units=metric`;
+  let apiUrl = `https://api.openweathermap.org/data/2.5/forecast?q=${city}&appid=${apiKey}&units=metric`;
   axios.get(apiUrl).then(displayForecast);
 }
 
@@ -132,43 +132,71 @@ function showTemperatureOfMyCity(latitude, longitude) {
   });
 }
 
-function displayForecast() {
+function displayForecast(response) {
   let forecastElement = document.querySelector("#forecast");
 
-  let days = ["Tue", "Wed", "Thu", "Fri", "Sat"];
+  // Clear any previous forecast data
+  forecastElement.innerHTML = "";
+
+  // Start the row element
   let forecastHtml =
     '<div class="row align-items-center justify-content-around">';
 
-  days.forEach(function (day) {
+  // Define an array of day abbreviations
+  let dayAbbreviations = ["Sun", "Mon", "Tue", "Wed", "Thu", "Fri", "Sat"];
+
+  if (response.data.list) {
+    // Loop through the first 5 days in the forecast data
+    for (let i = 0; i < 5; i++) {
+      // Find the forecast data for the corresponding day
+      let forecastData = response.data.list[i];
+
+      // If forecastData is found, build the HTML for the day
+      if (forecastData) {
+        forecastHtml += `
+          <div class="col-2">
+            <div>
+              <div class="weather-forecast-date">${dayAbbreviations[i]}</div>
+              <img
+                src="http://openweathermap.org/img/wn/${
+                  forecastData.weather[0].icon
+                }@2x.png"
+                alt=""
+                class="forecast-icon"
+                style="max-height: 64px; max-width: 64px"
+              />
+              <div class="weather-forecast-temperature">
+                <span class="weather-forecast-max-temperature">${Math.round(
+                  forecastData.main.temp_max
+                )}°</span>
+                <span class="weather-forecast-min-temperature">${Math.round(
+                  forecastData.main.temp_min
+                )}°</span>
+              </div>
+            </div>
+          </div>
+      `;
+      }
+    }
+  } else {
+    // Handle the case where the response data structure is not as expected
     forecastHtml =
-      forecastHtml +
-      `
-    <div class="col-2">
-      <div>
-        <div class="weather-forecast-date">${day}</div>
-        <img
-          src="http://openweathermap.org/img/wn/04d@2x.png"
-          alt=""
-          class="forecast-icon"
-          style="max-height: 64px; max-width: 64px"
-        />
-        <div class="weather-forecast-temperature">
-          <span class="weather-forecast-max-temperature">18</span>
-          <span class="weather-forecast-min-temperature">12</span>
-        </div>
-      </div>
-    </div>
-`;
-  });
+      '<div class="error-message">Forecast data not available.</div>';
+  }
+
+  // Close the row element
   forecastHtml += "</div>";
+
   forecastElement.innerHTML = forecastHtml;
 }
 
-const buttons = document.querySelectorAll(".btn.btn-success");
+const buttons = document.querySelectorAll(".btn.btn-current");
 
 buttons.forEach(function (button) {
   button.addEventListener("click", function () {
     navigator.geolocation.getCurrentPosition(showPosition);
+    buttons.forEach((btn) => btn.classList.remove("clicked"));
+    button.classList.add("clicked");
   });
 });
 
